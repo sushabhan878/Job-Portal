@@ -23,7 +23,7 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.send("API is working properly");
 });
-app.post("webhooks", clerkWebhook);
+app.post("/webhooks", clerkWebhook);
 //Sentry connection
 Sentry.setupExpressErrorHandler(app);
 
