@@ -21,7 +21,7 @@ router.post("/login", loginCompany);
 // Get compant data
 router.get("/company", protectCompany, getCompanyData);
 // Post job
-router.post("/postjob", protectCompany, postNewJob);
+router.post("/post-job", protectCompany, postNewJob);
 // Get Applicants data
 router.get("/applicants", protectCompany, getCompanyJobApplicents);
 // Get company posted jobs

@@ -80,7 +80,11 @@ export const getCompanyData = async (req, res) => {};
 
 // post a new job
 export const postNewJob = async (req, res) => {
-  const { title, description, lacation, salary } = req.body;
+  // Require all the fields to add new job
+  const { title, description, location, salary } = req.body;
+  // console the details for check
+  const companyId = req.company._id;
+  console.log(companyId, { title, description, location, salary });
 };
 
 //Get company job applicents
