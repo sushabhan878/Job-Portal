@@ -81,10 +81,28 @@ export const getCompanyData = async (req, res) => {};
 // post a new job
 export const postNewJob = async (req, res) => {
   // Require all the fields to add new job
-  const { title, description, location, salary } = req.body;
+  const { title, description, location, salary, category, level } = req.body;
   // console the details for check
   const companyId = req.company._id;
-  console.log(companyId, { title, description, location, salary });
+  // Added a new job
+  try {
+    const newJob = new Job({
+      title,
+      description,
+      location,
+      salary,
+      companyId,
+      category,
+      level,
+      date: Date.now(),
+    });
+    // New job saved
+    await newJob.save();
+    res.json({ success: true, newJob });
+    // If something occured error message will show
+  } catch (error) {
+    res.json({ success: false, message: error.message });
+  }
 };
 
 //Get company job applicents
