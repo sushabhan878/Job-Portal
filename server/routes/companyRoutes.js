@@ -10,6 +10,7 @@ import {
   changeVisibility,
 } from "../controllers/companyController.js";
 import uplode from "../config/multer.js";
+import { protectCompany } from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
@@ -18,16 +19,16 @@ router.post("/register", uplode.single("image"), registerCompany);
 // Login a company
 router.post("/login", loginCompany);
 // Get compant data
-router.get("/company", getCompanyData);
+router.get("/company", protectCompany, getCompanyData);
 // Post job
-router.post("/postjob", postNewJob);
+router.post("/postjob", protectCompany, postNewJob);
 // Get Applicants data
-router.get("/applicants", getCompanyJobApplicents);
+router.get("/applicants", protectCompany, getCompanyJobApplicents);
 // Get company posted jobs
-router.get("/list-jobs", getCompanyPostedJobs);
+router.get("/list-jobs", protectCompany, getCompanyPostedJobs);
 // Change application status
-router.post("/change-status", changeJobApplicationStatus);
+router.post("/change-status", protectCompany, changeJobApplicationStatus);
 // change application visibility
-router.post("/change-visibility", changeVisibility);
+router.post("/change-visibility", protectCompany, changeVisibility);
 
 export default router;
