@@ -1,0 +1,72 @@
+import Company from "../models/Company.js";
+import bcrypt from "bcrypt";
+import { v2 as cloudinary } from "cloudinary";
+import generateToken from "../utils/generateToken.js";
+// Register a new company
+export const registerCompany = async (req, res) => {
+  // Defining fields for new user
+  const { name, email, password } = req.body;
+  // Requesting for image file
+  const imageFile = req.file;
+  if (!name || !email || !password || !imageFile) {
+    return res.json({ success: false, message: "All fields are required" });
+  }
+  // Trying to find existing user if available
+  try {
+    const companyExist = await Company.findOne({ email });
+    if (companyExist) {
+      return res.json({
+        success: false,
+        message: "Company olready registered",
+      });
+    }
+    // Hashing password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+    // Uploading image to cloudinary
+    const imageUpload = await cloudinary.uploader.upload(imageFile.path);
+    // Create new user
+    const company = await Company.create({
+      name,
+      email,
+      password: hashedPassword,
+      image: imageUpload.secure_url,
+    });
+    // Return response
+    res.json({
+      success: true,
+      company: {
+        _id: company._id,
+        name: company.name,
+        email: company.email,
+        image: company.image,
+      },
+      //Token generating for company id
+      token: generateToken(company._id),
+    });
+    // If something happens then throgh this error
+  } catch (error) {
+    res.json({ success: false, message: error.message });
+  }
+};
+
+// Company Login
+export const loginCompany = async (req, res) => {};
+
+//Get company data
+export const getCompanyData = async (req, res) => {};
+
+// post a new job
+export const postNewJob = async (req, res) => {};
+
+//Get company job applicents
+export const getCompanyJobApplicents = async (req, res) => {};
+
+// Get company posted jobs
+export const getCompanyPostedJobs = async (req, res) => {};
+
+// Change job spplication status
+export const changeJobApplicationStatus = async (req, res) => {};
+
+// Change Job visibility
+export const changeVisibility = async (req, res) => {};
