@@ -5,6 +5,7 @@ import {
   applForJob,
   gerUserJobApplications,
 } from "../controllers/userController.js";
+import uplode from "../config/multer.js";
 
 const router = express.Router();
 
@@ -15,6 +16,6 @@ router.post("/apply", applForJob);
 // Get user applied applications
 router.get("/applications", gerUserJobApplications);
 // Update Profile / Resume
-router.post("/update-resume", upload.single("resume"), updateUserResume);
+router.post("/update-resume", uplode.single("resume"), updateUserResume);
 
 export default router;

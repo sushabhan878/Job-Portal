@@ -9,6 +9,7 @@ import companyRoutes from "./routes/companyRoutes.js";
 import connectCloudinary from "./config/cloudinary.js";
 import jobRoutes from "./routes/jobRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
+import { clerkMiddleware } from "@clerk/express";
 
 //Port defining
 const port = process.env.PORT || 5000;
@@ -23,6 +24,7 @@ await connectCloudinary();
 //Middleware
 app.use(cors());
 app.use(express.json());
+app.use(clerkMiddleware());
 
 //Routes
 app.get("/", (req, res) => {
