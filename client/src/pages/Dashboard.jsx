@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { assets } from "../assets/assets";
+import { AppContext } from "../context/AppContext";
 
 const Dashboard = () => {
   const navigate = useNavigate();
+  const { companyData } = useContext(AppContext);
   return (
     <div className="min-h-screen ">
       {/* Navbar for Recruter pannel */}
@@ -15,21 +17,23 @@ const Dashboard = () => {
             src={assets.logo}
             alt="Logod"
           />
-          <div className="flex items-center gap-3">
-            <p className="max-sm:hidden">Welcome, Recruter</p>
-            <div className="relative group">
-              <img
-                className="w-8 border rounded-full"
-                src={assets.company_icon}
-                alt="Company Icon"
-              />
-              <div className="absolute hidden group-hover:block top-0 right-0 z-10 text-black rounded pt-12">
-                <ul className="list-none m-0 p-2 bg-white rounded-md border text-sm">
-                  <li className="px-2 py-1 cursor-pointer pr-10">Logout</li>
-                </ul>
+          {companyData && (
+            <div className="flex items-center gap-3">
+              <p className="max-sm:hidden">Welcome, {companyData.name}</p>
+              <div className="relative group">
+                <img
+                  className="w-8 border rounded-full"
+                  src={companyData.image}
+                  alt="Company Icon"
+                />
+                <div className="absolute hidden group-hover:block top-0 right-0 z-10 text-black rounded pt-12">
+                  <ul className="list-none m-0 p-2 bg-white rounded-md border text-sm">
+                    <li className="px-2 py-1 cursor-pointer pr-10">Logout</li>
+                  </ul>
+                </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
       {/* Main Container */}

@@ -18,7 +18,7 @@ export const AppContextProvider = (props) => {
 
   const [showRecruterLogin, setShowRecruterLogin] = useState(false);
 
-  const [companyTioken, setCompanyToken] = useState(null);
+  const [companyToken, setCompanyToken] = useState(null);
   const [companyData, setCompanyData] = useState(null);
 
   /// Function to fetch job data
@@ -32,7 +32,7 @@ export const AppContextProvider = (props) => {
     try {
       const { data } = await axios.get(backendUrl + "/api/company/company", {
         headers: {
-          token: companyTioken,
+          token: companyToken,
         },
       });
       if (data.success) {
@@ -55,10 +55,10 @@ export const AppContextProvider = (props) => {
   }, []);
 
   useEffect(() => {
-    if (companyTioken) {
+    if (companyToken) {
       fetchCompanyData();
     }
-  }, [companyTioken]);
+  }, [companyToken]);
 
   const value = {
     searchFilter,
@@ -69,7 +69,7 @@ export const AppContextProvider = (props) => {
     setJobs,
     showRecruterLogin,
     setShowRecruterLogin,
-    companyTioken,
+    companyToken,
     setCompanyToken,
     companyData,
     setCompanyData,
