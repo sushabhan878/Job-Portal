@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { assets } from "../assets/assets";
 import { AppContext } from "../context/AppContext";
@@ -14,6 +14,12 @@ const Dashboard = () => {
     setCompanyData(null);
     navigate("/");
   };
+
+  useEffect(() => {
+    if (companyData) {
+      navigate("/dashboard/manage-jobs");
+    }
+  }, [companyData]);
   return (
     <div className="min-h-screen ">
       {/* Navbar for Recruter pannel */}
