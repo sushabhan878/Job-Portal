@@ -33,7 +33,7 @@ app.get("/", (req, res) => {
 app.post("/webhooks", clerkWebhook);
 app.use("/api/company", companyRoutes);
 app.use("/api/jobs", jobRoutes);
-app.use("/api/user", userRoutes);
+app.use("/api/users", userRoutes);
 //Sentry connection
 Sentry.setupExpressErrorHandler(app);
 

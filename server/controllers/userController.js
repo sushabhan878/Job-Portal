@@ -46,7 +46,7 @@ export const applForJob = async (req, res) => {
 };
 
 // Get user applied applications
-export const gerUserJobApplications = async (req, res) => {
+export const getUserJobApplications = async (req, res) => {
   try {
     const userId = await req.auth.userId;
     const application = await JobApplication.find({ userId })
