@@ -5,7 +5,7 @@ import { v2 as cloudinary } from "cloudinary";
 
 // Get user data
 export const getUserData = async (req, res) => {
-  const userId = req.auth.userId;
+  const userId = req.auth().userId;
   try {
     const user = await User.findById(userId);
     if (!user) {
@@ -20,7 +20,7 @@ export const getUserData = async (req, res) => {
 // Apply for a job
 export const applForJob = async (req, res) => {
   const { jobId } = req.body;
-  const userId = req.auth.userId;
+  const userId = req.auth().userId;
   try {
     const isAlreadyApplied = await JobApplication.findOne({ jobId, userId });
     if (isAlreadyApplied) {
@@ -48,7 +48,7 @@ export const applForJob = async (req, res) => {
 // Get user applied applications
 export const getUserJobApplications = async (req, res) => {
   try {
-    const userId = req.auth.userId;
+    const userId = req.auth().userId;
     const application = await JobApplication.find({ userId })
       .populate("companyId", "name email image")
       .populate("jobId", "title description location category level salary")
@@ -69,7 +69,7 @@ export const getUserJobApplications = async (req, res) => {
 // Update Profile / Resume
 export const updateUserResume = async (req, res) => {
   try {
-    const userId = req.auth.userId;
+    const userId = req.auth().userId;
     const resumeFile = req.file;
     const userData = await User.findById(userId);
     if (resumeFile) {
