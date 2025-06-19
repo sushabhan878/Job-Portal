@@ -58,7 +58,9 @@ const ViewApplications = () => {
   }, [companyToken]);
   return applicants ? (
     applicants.length === 0 ? (
-      <div></div>
+      <div className="flex items-center justify-center h-[70vh]">
+        <p className="text-xl lg:text-2xl">No Applications Recived</p>
+      </div>
     ) : (
       <div className="container mx-auto p-4">
         <div>
