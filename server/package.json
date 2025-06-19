@@ -4,14 +4,13 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
     "dev": "nodemon server.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Sushabhan Majumdar",
   "license": "ISC",
-  "description": "",
+  "description": "A platform to connect job seekers with job providers",
   "dependencies": {
     "@clerk/express": "^1.7.0",
     "@sentry/node": "^9.29.0",
