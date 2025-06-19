@@ -4,6 +4,7 @@ import { v2 as cloudinary } from "cloudinary";
 import generateToken from "../utils/generateToken.js";
 import Job from "../models/Job.js";
 import JobApplications from "../models/JobApplications.js";
+import JobApplication from "../models/JobApplications.js";
 // Register a new company
 export const registerCompany = async (req, res) => {
   // Defining fields for new user
@@ -114,7 +115,20 @@ export const postNewJob = async (req, res) => {
 };
 
 //Get company job applicents
-export const getCompanyJobApplicents = async (req, res) => {};
+export const getCompanyJobApplicents = async (req, res) => {
+  try {
+    const companyId = req.company._id;
+    // Find job applications foer user and populate realted data
+    const applications = await JobApplication.find({ companyId })
+      .populate("userId", "name image resume")
+      .populate("jobId", "title location category level salary")
+      .exec();
+
+    return res.json({ success: true, applications });
+  } catch (error) {
+    res.json({ success: false, message: error.message });
+  }
+};
 
 // Get company posted jobs
 export const getCompanyPostedJobs = async (req, res) => {
