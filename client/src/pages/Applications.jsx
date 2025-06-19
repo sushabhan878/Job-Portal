@@ -1,6 +1,6 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
-import { assets, jobsApplied } from "../assets/assets";
+import { assets } from "../assets/assets";
 import moment from "moment";
 import Footer from "../components/Footer";
 import { AppContext } from "../context/AppContext";
@@ -14,8 +14,13 @@ const Applications = () => {
   const [isEdit, setIsEdit] = useState(false);
   const [resume, setResume] = useState(null);
 
-  const { backendUrl, userData, userApplications, fetchUserData } =
-    useContext(AppContext);
+  const {
+    backendUrl,
+    userData,
+    userApplications,
+    fetchUserData,
+    fetchUserApplication,
+  } = useContext(AppContext);
   const handleResumeUpload = (e) => {
     const file = e.target.files[0];
     if (file && file.type !== "application/pdf") {
@@ -55,6 +60,11 @@ const Applications = () => {
     setResume(null);
   };
 
+  useEffect(() => {
+    if (user) {
+      fetchUserApplication();
+    }
+  }, [user]);
   return (
     <>
       <Navbar />

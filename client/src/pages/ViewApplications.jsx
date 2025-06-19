@@ -26,6 +26,31 @@ const ViewApplications = () => {
     }
   };
 
+  // Function to update job application status
+  const changeJobApplicationStatus = async (id, status) => {
+    try {
+      const { data } = await axios.post(
+        backendUrl + "/api/company/change-status",
+        {
+          id,
+          status,
+        },
+        {
+          headers: {
+            token: companyToken,
+          },
+        }
+      );
+      if (data.success) {
+        fetchCompanyJobApplicationsData();
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
   useEffect(() => {
     if (companyToken) {
       fetchCompanyJobApplicationsData();
@@ -84,19 +109,39 @@ const ViewApplications = () => {
                       </a>
                     </td>
                     <td className="py-2 px-4 border-b relative">
-                      <div className="relative inline-block text-left group">
-                        <button className="text-gray-500 action-button">
-                          ...
-                        </button>
-                        <div className="z-10 hidden absolute right-0 md:left-0 top-0 mt-2 w-32 bg-white border border-gray-200 rounded shadow group-hover:block">
-                          <button className="block w-full text-left px-4 py-2 text-blue-500 hover:bg-gray-100">
-                            Accept
+                      {applicant.status === "Pending" ? (
+                        <div className="relative inline-block text-left group">
+                          <button className="text-gray-500 action-button">
+                            ...
                           </button>
-                          <button className="block w-full text-left px-4 py-2 text-red-500 hover:bg-gray-100">
-                            Reject
-                          </button>
+                          <div className="z-10 hidden absolute right-0 md:left-0 top-0 mt-2 w-32 bg-white border border-gray-200 rounded shadow group-hover:block">
+                            <button
+                              onClick={() =>
+                                changeJobApplicationStatus(
+                                  applicant._id,
+                                  "Accepted"
+                                )
+                              }
+                              className="block w-full text-left px-4 py-2 text-blue-500 hover:bg-gray-100"
+                            >
+                              Accept
+                            </button>
+                            <button
+                              onClick={() =>
+                                changeJobApplicationStatus(
+                                  applicant._id,
+                                  "Rejected"
+                                )
+                              }
+                              className="block w-full text-left px-4 py-2 text-red-500 hover:bg-gray-100"
+                            >
+                              Reject
+                            </button>
+                          </div>
                         </div>
-                      </div>
+                      ) : (
+                        <div>{applicant.status}</div>
+                      )}
                     </td>
                   </tr>
                 ))}
