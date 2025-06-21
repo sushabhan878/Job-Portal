@@ -1,9 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
-import { assets } from "../assets/assets";
-import { AppContext } from "../context/AppContext";
+// Packages
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+// Import from others
+import { assets } from "../assets/assets";
+import { AppContext } from "../context/AppContext";
 
 const RecruterLogin = () => {
   const navigate = useNavigate();
@@ -13,9 +15,10 @@ const RecruterLogin = () => {
   const [email, setEmail] = useState("");
   const [image, setImage] = useState(false);
   const [isTextDataSubmited, setIsTextDataSubmited] = useState(false);
-
   const { setShowRecruterLogin, backendUrl, setCompanyToken, setCompanyData } =
     useContext(AppContext);
+
+  // Handler
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     if (state === "Sign Up" && !isTextDataSubmited) {
@@ -61,6 +64,7 @@ const RecruterLogin = () => {
       toast.error(error.message);
     }
   };
+  // useEffect Hook
   useEffect(() => {
     document.body.style.overflow = "hidden";
     return () => {
@@ -88,7 +92,7 @@ const RecruterLogin = () => {
                 <img
                   className="w-16 rounded-full"
                   src={image ? URL.createObjectURL(image) : assets.upload_area}
-                  alt=""
+                  alt="Profile Image"
                 />
                 <input
                   onChange={(e) => setImage(e.target.files[0])}

@@ -33,7 +33,6 @@ const JobListing = () => {
       selectedCategory.length === 0 || selectedCategory.includes(job.category);
     const matchesLocation = (job) =>
       selectedLocation.length === 0 || selectedLocation.includes(job.location);
-
     const matchesTitle = (job) =>
       searchFilter.title === "" ||
       job.title.toLowerCase().includes(searchFilter.title.toLowerCase());
@@ -50,7 +49,6 @@ const JobListing = () => {
           matchesTitle(job) &&
           matchesSearchLocation(job)
       );
-
     setFilteredJobs(newFilteredJobs);
     setCurrentPage(1);
   }, [jobs, selectedCategory, selectedLocation, searchFilter]);

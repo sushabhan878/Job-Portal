@@ -1,17 +1,21 @@
-import React, { useContext } from "react";
+// Packages
+import { useContext } from "react";
 import { Route, Routes } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "quill/dist/quill.snow.css";
+// Pages for routing
 import Home from "./pages/Home";
 import ApplyJob from "./pages/ApplyJob";
 import Applications from "./pages/Applications";
-import RecruterLogin from "./components/RecruterLogin";
-import { AppContext } from "./context/AppContext";
 import Dashboard from "./pages/Dashboard";
 import AddJob from "./pages/AddJob";
 import ManageJobs from "./pages/ManageJobs";
 import ViewApplications from "./pages/ViewApplications";
-import "quill/dist/quill.snow.css";
-import { ToastContainer, toast } from "react-toastify";
+// Components for scalability
+import RecruterLogin from "./components/RecruterLogin";
 import Unauthorized from "./components/Unauthorized";
+// Context provider
+import { AppContext } from "./context/AppContext";
 const App = () => {
   const { showRecruterLogin, companyToken } = useContext(AppContext);
 

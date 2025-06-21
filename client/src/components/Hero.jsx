@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from "react";
+import { useContext, useRef } from "react";
 import { assets } from "../assets/assets";
 import { AppContext } from "../context/AppContext";
 const Hero = () => {
@@ -13,10 +13,6 @@ const Hero = () => {
       location: locationRef.current.value,
     });
     setIsSearched(true);
-    console.log({
-      title: titleRef.current.value,
-      location: locationRef.current.value,
-    });
   };
 
   return (
